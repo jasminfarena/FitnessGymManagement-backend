@@ -1,0 +1,107 @@
+/*
+===========================================
+Database Setup Instructions
+===========================================
+
+Steps to run:
+
+1. Create the database
+2. Create tables:
+   - users
+   - members
+
+Make sure you run each section in order!
+*/
+
+-- 1) Create Database
+CREATE DATABASE `mygym` ;
+
+
+-- Switch to mygym database
+USE `mygym`;
+
+
+/* ----------------------------------------
+2) Create 'users' Table
+---------------------------------------- */
+
+CREATE TABLE `users` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(120) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `role` enum('admin','staff') DEFAULT 'staff',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/* ----------------------------------------
+2) Create 'users' Table
+---------------------------------------- */
+
+CREATE TABLE `users` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(120) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `role` enum('admin','staff') DEFAULT 'staff',
+  `created_at` date DEFAULT NULL,
+  `updated_at` date DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+Insert The Data For Login
+-------------------------
+
+INSERT INTO `mygym`.`users`
+(`id`, `name`, `email`,`password`,`role`,`created_at`,`updated_at`)
+VALUES
+('1', 'Emma', 'emma@test.com', '$2b$10$wAcmnluUYuUHyqNJ6ieqR.eubm/m0rn6JoIKNlmibG/6dmDKtqQUG', 'admin','2025-01-01', '0000-00-00');
+
+
+
+/* ----------------------------------------
+3) Create 'members' Table
+---------------------------------------- */
+
+CREATE TABLE `members` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `membership_number` varchar(50) NOT NULL,
+  `full_name` varchar(120) NOT NULL,
+  `gender` enum('male','female','other') DEFAULT NULL,
+  `date_of_birth` date DEFAULT NULL,
+  `phone` varchar(30) DEFAULT NULL,
+  `email` varchar(120) DEFAULT NULL,
+  `address` text,
+  `emergency_contact` varchar(120) DEFAULT NULL,
+  `membership_status` enum('active','inactive','frozen') DEFAULT 'active',
+  `membership_start` date DEFAULT NULL,
+  `membership_end` date DEFAULT NULL,
+  `remarks` text,
+  `created_at` date DEFAULT NULL,
+  `updated_at` date DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `membership_number` (`membership_number`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+Insert The Data For Members
+-------------------------
+
+INSERT INTO `members` 
+(`membership_number`, `full_name`, `gender`, `date_of_birth`, `phone`, `email`, `address`, `emergency_contact`, `membership_status`, `membership_start`, `membership_end`, `remarks`, `created_at`, `updated_at`)
+VALUES
+('M001', 'Farah Aisyah', 'female', '1995-03-12', '012-3456789', 'farah@example.com', '123 Jalan Ampang, Kuala Lumpur', 'Siti Aisyah - 019-8765432', 'active', '2025-01-01', '2026-01-01', 'VIP member', CURDATE(), CURDATE()),
+('M002', 'Ahmad Faiz', 'male', '1992-07-22', '013-9876543', 'ahmad@example.com', '45 Jalan Bukit Bintang, Kuala Lumpur', 'Hassan Faiz - 012-1112233', 'active', '2025-02-15', '2026-02-14', '', CURDATE(), CURDATE()),
+('M003', 'Nurul Izzah', 'female', '1998-11-05', '014-2233445', 'nurul@example.com', '56 Jalan Tun Razak, Kuala Lumpur', 'Rashid Izzah - 017-5566778', 'frozen', '2024-12-01', '2025-12-01', 'On medical leave', CURDATE(), CURDATE()),
+('M004', 'Hafiz Rahman', 'male', '1990-05-17', '016-3344556', 'hafiz@example.com', '78 Jalan Sultan Ismail, Kuala Lumpur', 'Farid Rahman - 019-9988776', 'inactive', '2024-06-01', '2025-06-01', '', CURDATE(), CURDATE()),
+('M005', 'Aina Syahirah', 'female', '2000-09-28', '011-5566778', 'aina@example.com', '22 Jalan Pudu, Kuala Lumpur', 'Lina Syahirah - 012-3344556', 'active', '2025-03-01', '2026-03-01', '', CURDATE(), CURDATE()),
+('M006', 'Daniel Tan', 'male', '1988-12-10', '019-6677889', 'daniel@example.com', '5 Jalan Kuching, Kuala Lumpur', 'Samuel Tan - 014-7788990', 'active', '2025-01-20', '2026-01-19', 'Premium member', CURDATE(), CURDATE()),
+('M007', 'Siti Khadijah', 'female', '1996-04-30', '018-4455667', 'khadijah@example.com', '11 Jalan Ampang, Kuala Lumpur', 'Hafizah - 012-9988776', 'active', '2025-02-01', '2026-02-01', '', CURDATE(), CURDATE()),
+('M008', 'Rizal Hakim', 'male', '1993-08-15', '017-5566778', 'rizal@example.com', '33 Jalan Imbi, Kuala Lumpur', 'Hakim - 016-6677889', 'frozen', '2024-11-01', '2025-11-01', 'Paused membership', CURDATE(), CURDATE()),
+('M009', 'Liyana Putri', 'female', '1999-01-22', '015-7788990', 'liyana@example.com', '66 Jalan Chow Kit, Kuala Lumpur', 'Putri - 012-2233445', 'active', '2025-03-10', '2026-03-10', '', CURDATE(), CURDATE()),
+('M010', 'Farid Haziq', 'male', '1991-06-18', '012-8899776', 'farid@example.com', '88 Jalan Tun H S Lee, Kuala Lumpur', 'Haziq - 019-3344556', 'active', '2025-01-05', '2026-01-05', 'New member', CURDATE(), CURDATE());
